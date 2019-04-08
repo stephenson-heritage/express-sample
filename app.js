@@ -1,12 +1,30 @@
 const express = require("express");
+const path = require("path");
+const cookieParser = require("cookie-parser");
 const app = express();
 const port = 9000;
 
-app.get("/bye", (req, res) => {
-	return res.send("bubye!");
+app.use(cookieParser());
+
+app.use((req, res, next) => {
+	if (req.cookies.vcount == undefined) {
+		req.vcount = 1;
+		res.cookie("vcount", 1);
+	} else {
+		req.vcount = parseInt(req.cookies.vcount) + 1;
+		res.cookie("vcount", req.vcount);
+	}
+	next();
 });
 
-app.get("/hello", (req, res) => res.send("hey there"));
+app.get("/inc", (req, res) => {
+	return res.send(path.join(__dirname, "inc"));
+});
+app.use("/inc", express.static(path.join(__dirname, "inc")));
+
+app.get("/hello", (req, res) => {
+	return res.send(req.vcount + "<br>hey there");
+});
 
 app.get("/users/:userId/:email", (req, res) => {
 	let uid = parseInt(req.params.userId);
