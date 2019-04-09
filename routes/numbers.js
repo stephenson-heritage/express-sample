@@ -1,8 +1,10 @@
-app.get("/numbers/:from-:to", (req, res) => {
+const router = require("express").Router();
+
+router.get("/:from-:to", (req, res) => {
 	let a = parseInt(req.params.from);
 	let b = parseInt(req.params.to);
 
-	let html = "";
+	let nums = [];
 
 	if (a > b) {
 		let t = a;
@@ -11,8 +13,11 @@ app.get("/numbers/:from-:to", (req, res) => {
 	}
 
 	for (let x = a; x <= b; x++) {
-		html += `<div>${x}</div>`;
+		nums.push(x);
+		//html += `<div>${x}</div>`;
 	}
 
-	res.send(html);
+	res.render("numbers", { title: "numbers", numbers: nums });
 });
+
+module.exports = router;
