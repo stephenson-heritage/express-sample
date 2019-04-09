@@ -2,3 +2,5 @@
 
 # node module
 node_modules/
+
+config/db.js
