@@ -3,4 +3,4 @@
 # node module
 node_modules/
 
-config/db.js
+config/dbConn.js
