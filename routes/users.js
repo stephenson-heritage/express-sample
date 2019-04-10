@@ -1,11 +1,13 @@
 const router = require("express").Router();
+const userController = require("../controllers/user");
 
-//router.use('/settings', userSettingRouter);
-router.get("/:userId/:email", (req, res) => {
+router.get("/", (req, res) => {
+	userController.allUsers(req, res);
+});
+
+router.get("/:userId", (req, res, next) => {
 	let uid = parseInt(req.params.userId);
-	let email = req.params.email;
-
-	res.send(`user ${uid}'s email set to ${email}`);
+	userController.getUser(uid, req, res, next);
 });
 
 module.exports = router;

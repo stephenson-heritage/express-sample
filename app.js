@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const hbs = require("hbs");
+const debug = require("debug")("express:server");
 
 const app = express();
 const dbLayer = require("./config/db");
@@ -35,5 +36,5 @@ app.use("/numbers", numbersRouter);
 
 app.listen(port, function() {
 	dbLayer.init();
-	return console.log("Sample App " + port + "!");
+	debug("Sample App " + port + "!");
 });
