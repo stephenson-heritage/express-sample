@@ -10,11 +10,7 @@ nav > ul > li {
 	display: inline-block;
 	padding: 0;
 }
-nav > ul > li > a {
-	text-decoration: none;
-	color: purple;
-	transition: 500ms;
-}
+
 nav > ul > li > a {
 	text-decoration: none;
 	color: purple;
@@ -23,5 +19,5 @@ nav > ul > li > a {
 
 nav > ul > li > a:hover {
 	color: black;
-	text-shadow: 1px 1px 2px #666;
+	text-shadow: 1px 1px 2px rgb(160, 160, 160);
 }
