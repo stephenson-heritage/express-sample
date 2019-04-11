@@ -2,6 +2,16 @@ body {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+header {
+	text-align: center;
+	background: radial-gradient(
+		ellipse at center,
+		rgba(65, 49, 247, 0.58) 0%,
+		rgba(97, 121, 239, 0) 53%,
+		rgba(125, 185, 232, 0) 100%
+	);
+}
+
 #logo {
 	width: 15vw;
 }
