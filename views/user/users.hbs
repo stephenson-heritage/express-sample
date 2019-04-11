@@ -2,6 +2,9 @@
   <thead>
     <tr>
       <td>
+
+      </td>
+      <td>
         uid
       </td>
       <td>
@@ -10,13 +13,18 @@
     </tr>
   </thead>
   {{#each users}}
-    <tr>
-      <td>
-        {{userId}}
-      </td>
-      <td>
-        {{user}}
-      </td>
-    </tr>
+  <tr>
+    <td>
+      {{#if hasImage}}
+      <img class="small" src="/inc/img/users/{{userId}}.png" />
+      {{/if}}
+    </td>
+    <td>
+      {{userId}}
+    </td>
+    <td>
+      <a href="/users/{{userId}}">{{username}}</a>
+    </td>
+  </tr>
   {{/each}}
 </table>

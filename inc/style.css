@@ -6,6 +6,10 @@ body {
 	width: 15vw;
 }
 
+img.small {
+	width: 46px;
+}
+
 nav > ul {
 	padding: 0;
 }

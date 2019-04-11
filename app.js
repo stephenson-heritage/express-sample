@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const hbs = require("hbs");
+const fileUpload = require("express-fileupload");
 const debug = require("debug")("express:server");
 
 const app = express();
@@ -16,6 +17,12 @@ const port = 9000;
 app.set("view engine", "hbs");
 hbs.registerPartials(path.join(__dirname, "views/partials"));
 
+app.use(
+	fileUpload({
+		useTempFiles: true,
+		tempFileDir: "/tmp/"
+	})
+);
 app.use(cookieParser());
 app.use("/inc", express.static(path.join(__dirname, "inc")));
 
@@ -29,9 +36,9 @@ app.use((req, res, next) => {
 	}
 	next();
 });
-
-app.use("/", rootRouter);
 app.use("/users", usersRouter);
+app.use("/", rootRouter);
+
 app.use("/numbers", numbersRouter);
 
 app.listen(port, function() {
