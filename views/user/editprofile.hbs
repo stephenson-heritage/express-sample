@@ -1,0 +1,15 @@
+<form>
+    <input type="hidden" name="userId" value="{{userId}}" />
+    <div>
+        <div><input type="text" name="user" value="{{user}}" /></div>
+        <div>
+            {{#if hasImage}}
+                <img src="/inc/img/users/{{userId}}.jpg" />
+                <div>Replace profile image</div>
+            {{else}}
+                <div>Add a profile image</div>
+            {{/if}}
+            <input type="file" name="image" /></div>
+    </div>
+
+</form>
