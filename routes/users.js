@@ -10,4 +10,9 @@ router.get("/:userId", (req, res, next) => {
 	userController.getUser(uid, req, res, next);
 });
 
+router.get("/:userId/edit", (req, res, next) => {
+	let uid = parseInt(req.params.userId);
+	userController.editUserForm(uid, req, res, next);
+});
+
 module.exports = router;
