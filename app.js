@@ -4,6 +4,7 @@ const cookieParser = require("cookie-parser");
 const hbs = require("hbs");
 const fileUpload = require("express-fileupload");
 const debug = require("debug")("express:server");
+const bodyParser = require("body-parser");
 
 const app = express();
 const dbLayer = require("./config/db");
@@ -16,6 +17,15 @@ const port = 9000;
 
 app.set("view engine", "hbs");
 hbs.registerPartials(path.join(__dirname, "views/partials"));
+
+app.use(bodyParser.json({ limit: "150mb" }));
+app.use(
+	bodyParser.urlencoded({
+		// to support URL-encoded bodies
+		limit: "150mb",
+		extended: true
+	})
+);
 
 app.use(
 	fileUpload({

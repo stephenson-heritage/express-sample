@@ -15,9 +15,9 @@ router.get("/:userId/edit", (req, res, next) => {
 	userController.editUserForm(uid, req, res, next);
 });
 
-router.post("/:userId/edit", (req, res, next) => {
+router.post("/:userId/edit", async (req, res, next) => {
 	let uid = parseInt(req.params.userId);
-	userController.saveUserForm(uid, req, res);
+	await userController.saveUserForm(uid, req, res);
 	userController.editUserForm(uid, req, res, next);
 });
 
