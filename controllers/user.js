@@ -81,7 +81,7 @@ module.exports = class {
 		await sharp(tFilePath)
 			.resize(250, 200, {
 				kernel: sharp.kernel.cubic,
-				fit: "contain",
+				fit: "cover",
 				position: "attention",
 				background: { r: 255, g: 255, b: 255, alpha: 0.1 }
 			})
