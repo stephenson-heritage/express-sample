@@ -5,7 +5,6 @@ const hbs = require("hbs");
 const fileUpload = require("express-fileupload");
 const debug = require("debug")("express:server");
 const bodyParser = require("body-parser");
-
 const app = express();
 const dbLayer = require("./config/db");
 
@@ -15,8 +14,11 @@ const numbersRouter = require("./routes/numbers");
 
 const port = 9000;
 
+
+
 app.set("view engine", "hbs");
 hbs.registerPartials(path.join(__dirname, "views/partials"));
+
 
 app.use(bodyParser.json({ limit: "150mb" }));
 app.use(
@@ -33,6 +35,7 @@ app.use(
 		tempFileDir: "/tmp/"
 	})
 );
+
 app.use(cookieParser());
 app.use("/inc", express.static(path.join(__dirname, "inc")));
 
