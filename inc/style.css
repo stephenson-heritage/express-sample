@@ -1,13 +1,28 @@
 body {
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
+.err {
+	padding: 0;
+}
+.err > li {
+	background-color: rgb(255, 125, 125);
+	border: 2px red solid;
+	border-radius: 3px;
+	padding: 2px;
+	margin: 2px;
+	list-style-type: none;
+}
+
+textarea[name="content"] {
+	height: 90vh;
+}
 
 header {
 	text-align: center;
 	background: radial-gradient(
 		ellipse at center,
 		rgba(65, 49, 247, 0.58) 0%,
-		rgba(97, 121, 239, 0) 53%,
+		rgba(97, 121, 239, 0) 23%,
 		rgba(125, 185, 232, 0) 100%
 	);
 }

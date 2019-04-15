@@ -5,11 +5,10 @@ const hbs = require("hbs");
 const fileUpload = require("express-fileupload");
 const debug = require("debug")("express:server");
 const bodyParser = require("body-parser");
-
 const app = express();
 const dbLayer = require("./config/db");
 
-const rootRouter = require("./routes/root");
+const pagesRouter = require("./routes/pages");
 const usersRouter = require("./routes/users");
 const numbersRouter = require("./routes/numbers");
 
@@ -33,6 +32,7 @@ app.use(
 		tempFileDir: "/tmp/"
 	})
 );
+
 app.use(cookieParser());
 app.use("/inc", express.static(path.join(__dirname, "inc")));
 
@@ -47,7 +47,7 @@ app.use((req, res, next) => {
 	next();
 });
 app.use("/users", usersRouter);
-app.use("/", rootRouter);
+app.use("/", pagesRouter);
 
 app.use("/numbers", numbersRouter);
 

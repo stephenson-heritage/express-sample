@@ -10,4 +10,15 @@ module.exports = class {
 		connection.end();
 		return rows;
 	}
+
+	static async savePage(pageKey, title, content) {
+		let connection = await db.getConnection();
+		const result = await connection.query(
+			"INSERT INTO page (pageKey, title, content) VALUES" +
+				"(?,?,?) ON DUPLICATE KEY UPDATE title=?, content=?",
+			[pageKey, title, content, title, content]
+		);
+		connection.end();
+		return result;
+	}
 };

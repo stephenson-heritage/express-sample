@@ -1,0 +1,31 @@
+<script>tinymce.init({
+        selector: '[name="content"]', plugins: "code image"
+    });</script>
+{{#with page}}
+<form action="/{{pageKey}}/edit" method="post" enctype="application/x-www-form-urlencoded">
+    <input type="hidden" name="pageKey" value="{{pageKey}}" />
+    <div>
+        <div>
+
+            <label for="title">Title</label>
+            <ul class="err">
+                {{#each ../errors.title}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            <input type="text" name="title" value="{{title}}" />
+        </div>
+        <div>
+
+            <label for="content">Content</label>
+            <ul class="err">
+                {{#each ../errors.content}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+            <textarea name="content">{{content}}</textarea>
+        </div>
+        <div><input type="submit" value="Save" /></div>
+    </div>
+</form>
+{{/with}}

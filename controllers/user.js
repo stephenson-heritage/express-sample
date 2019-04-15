@@ -4,6 +4,7 @@ const sharp = require("sharp");
 const cfgControllers = require("../config/controller");
 const userModel = require("../model/user");
 const navmenuModel = require("../model/navmenu");
+const log = require("../config/log");
 module.exports = class {
 	static async allUsers(req, res) {
 		let users = await userModel.getUsers();
@@ -54,6 +55,7 @@ module.exports = class {
 			next();
 		}
 	}
+	// stores and resizes an image for the user
 	static async editUserForm(userId, req, res, next) {
 		let user = await userModel.getUser(userId);
 
@@ -78,15 +80,19 @@ module.exports = class {
 		let img = req.files.image;
 		let tFilePath = path.join(__dirname, `../tmp/${userId}`);
 		await img.mv(tFilePath);
-		await sharp(tFilePath)
-			.resize(250, 200, {
-				kernel: sharp.kernel.cubic,
-				fit: "cover",
-				position: "attention",
-				background: { r: 255, g: 255, b: 255, alpha: 0.1 }
-			})
-			.png()
-			.toFile(path.join(__dirname, `../inc/img/users/${userId}.png`));
+		try {
+			await sharp(tFilePath)
+				.resize(250, 200, {
+					kernel: sharp.kernel.cubic,
+					fit: "cover",
+					position: "attention",
+					background: { r: 255, g: 255, b: 255, alpha: 0.1 }
+				})
+				.png()
+				.toFile(path.join(__dirname, `../inc/img/users/${userId}.png`));
+		} catch (err) {
+			log(req, err);
+		}
 		fs.unlink(tFilePath, () => {});
 	}
 };
