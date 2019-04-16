@@ -2,37 +2,44 @@
         selector: '[name="content"]', plugins: "code image"
     });</script>
 {{#with page}}
+
+{{#if pageKey}}
 <form action="/{{pageKey}}/edit" method="post" enctype="application/x-www-form-urlencoded">
-    {{#if pageKey}}
     <input type="hidden" name="pageKey" value="{{pageKey}}" />
     {{else}}
-    <div>
-        <label for="pageKey">Key</label>
-        <input type="text" name="pageKey" />
-    </div>
-    {{/if}}
-    <div>
+    <form action="/new" method="post" enctype="application/x-www-form-urlencoded">
         <div>
-
-            <label for="title">Title</label>
+            <div><label for="pageKey">Key</label></div>
             <ul class="err">
-                {{#each ../errors.title}}
+                {{#each ../errors.pageKey}}
                 <li>{{this}}</li>
                 {{/each}}
             </ul>
-            <input type="text" name="title" value="{{title}}" />
+            <input type="text" name="pageKey" />
         </div>
+        {{/if}}
         <div>
+            <div>
 
-            <label for="content">Content</label>
-            <ul class="err">
-                {{#each ../errors.content}}
-                <li>{{this}}</li>
-                {{/each}}
-            </ul>
-            <textarea name="content">{{content}}</textarea>
+                <label for="title">Title</label>
+                <ul class="err">
+                    {{#each ../errors.title}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+                <input type="text" name="title" value="{{title}}" />
+            </div>
+            <div>
+
+                <label for="content">Content</label>
+                <ul class="err">
+                    {{#each ../errors.content}}
+                    <li>{{this}}</li>
+                    {{/each}}
+                </ul>
+                <textarea name="content">{{content}}</textarea>
+            </div>
+            <div><input type="submit" value="Save" /></div>
         </div>
-        <div><input type="submit" value="Save" /></div>
-    </div>
-</form>
-{{/with}}
+    </form>
+    {{/with}}

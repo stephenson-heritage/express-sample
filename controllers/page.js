@@ -26,11 +26,11 @@ module.exports = class {
 	}
 
 	static async new(req, res) {
-		return res.render("page/edit", { page: {} });
+		const errors = this.reError(req);
+		return res.render("page/edit", { page: {}, errors: errors });
 	}
 
-	static async edit(pageName, req, res, next) {
-		let pd = await this.getPage(pageName);
+	static reError(req) {
 		const errors = {};
 		if (req.validationErrors) {
 			for (let err in req.validationErrors) {
@@ -39,7 +39,12 @@ module.exports = class {
 				errors[e.param].push(e.msg);
 			}
 		}
+		return errors;
+	}
 
+	static async edit(pageName, req, res, next) {
+		let pd = await this.getPage(pageName);
+		const errors = this.reError(req);
 		if (pd) {
 			return res.render("page/edit", {
 				title: pd.title,
@@ -54,14 +59,19 @@ module.exports = class {
 
 	static async save(pageKey, req, res, next) {
 		const errors = validationResult(req);
-		//console.log(errors.array());
 		if (!errors.isEmpty()) {
 			req.validationErrors = errors.array();
 		} else {
 			const title = req.body.title;
 			const content = req.body.content;
+			pageKey = req.body.pageKey;
 			await pageModel.savePage(pageKey, title, content);
 		}
-		await this.edit(pageKey, req, res, next);
+
+		if (pageKey) {
+			await this.edit(pageKey, req, res, next);
+		} else {
+			await this.new(req, res);
+		}
 	}
 };

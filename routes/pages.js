@@ -6,7 +6,12 @@ const pageController = require("../controllers/page");
 const validate = [
 	check("title", "Title required").isLength({ min: 1 }),
 	check("title", "Title too short").isLength({ min: 2 }),
-	check("content", "Content should not be empty").isLength({ min: 1 })
+	check("content", "Content should not be empty").isLength({ min: 1 }),
+	check(
+		"pageKey",
+		"Key must only contain numbers and/or letters"
+	).isAlphanumeric(),
+	check("pageKey", "'new' is an invalid page key").matches(/^(?!new$).*$/)
 ];
 
 router.get("/", async (req, res, next) => {
@@ -15,6 +20,9 @@ router.get("/", async (req, res, next) => {
 
 router.get("/new", async (req, res) => {
 	pageController.new(req, res);
+});
+router.post("/new", [validate], async (req, res, next) => {
+	await pageController.save(null, req, res, next);
 });
 
 router.get("/:page", async (req, res, next) => {
