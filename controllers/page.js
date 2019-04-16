@@ -35,8 +35,6 @@ module.exports = class {
 			}
 		}
 
-		console.log(errors);
-
 		if (pd) {
 			return res.render("page/edit", {
 				title: pd.title,

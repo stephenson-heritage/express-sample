@@ -8,9 +8,10 @@ const bodyParser = require("body-parser");
 const app = express();
 const dbLayer = require("./config/db");
 
+const session = require("express-session");
+
 const pagesRouter = require("./routes/pages");
 const usersRouter = require("./routes/users");
-const numbersRouter = require("./routes/numbers");
 
 const port = 9000;
 
@@ -46,10 +47,11 @@ app.use((req, res, next) => {
 	}
 	next();
 });
+
+app.use(session({ secret: "343ji43j4n3jn4jk3n" }));
+
 app.use("/users", usersRouter);
 app.use("/", pagesRouter);
-
-app.use("/numbers", numbersRouter);
 
 app.listen(port, function() {
 	dbLayer.init();
