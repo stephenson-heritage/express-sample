@@ -13,6 +13,10 @@ router.get("/", async (req, res, next) => {
 	pageController.display("home", req, res, next);
 });
 
+router.get("/new", async (req, res) => {
+	pageController.new(req, res);
+});
+
 router.get("/:page", async (req, res, next) => {
 	let p = req.params.page.toLowerCase();
 	pageController.display(p, req, res, next);

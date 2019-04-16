@@ -24,6 +24,11 @@ module.exports = class {
 			next();
 		}
 	}
+
+	static async new(req, res) {
+		return res.render("page/edit", { page: {} });
+	}
+
 	static async edit(pageName, req, res, next) {
 		let pd = await this.getPage(pageName);
 		const errors = {};

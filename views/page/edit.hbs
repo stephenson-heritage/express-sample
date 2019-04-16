@@ -3,7 +3,14 @@
     });</script>
 {{#with page}}
 <form action="/{{pageKey}}/edit" method="post" enctype="application/x-www-form-urlencoded">
+    {{#if pageKey}}
     <input type="hidden" name="pageKey" value="{{pageKey}}" />
+    {{else}}
+    <div>
+        <label for="pageKey">Key</label>
+        <input type="text" name="pageKey" />
+    </div>
+    {{/if}}
     <div>
         <div>
 
